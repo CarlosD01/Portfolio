@@ -5,6 +5,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="../static/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Carlos Diaz - 4RUMS</title>
     </head>
     <body>
@@ -48,17 +49,36 @@
                     <img src="../static/images/4rums_post.png" style="border-radius: 3px; width: 35%; background-color: transparent;" alt="">
                 </div>
                 <img src="../static/images/4rums_dash.png" style="border-radius: 3px; width: 35%; background-color: transparent;" alt="">
+                <p style="text-align: center; background-color: transparent; margin-top: 25px;">*Homepage (Top-left), Individual Post Page (Top-right), User Dashboard (Bottom)</i></p>
             </div>
             <div class="container" style="display: flex; flex-direction: column; padding: 75px 0; width: 35% ">
                 <div style="text-align: left;">
                     <h2 style="margin-bottom: 20px;">01. Overview</h2>
                     <p>4RUMS is a forum based web application created using Python, Flask, sqlite3, HTML5, and CSS, and was inspired by Reddit. The website consists of 14 HTML template pages, one database, one CSS style page, as well as the main Python application.</p>
                     <br>
-                    <h2 style="margin-bottom: 20px;">02. Idea</h2>
-                    <p></p>
+                    <h2 style="margin-bottom: 20px;">02. Design & Features</h2>
+                    <p>
+                        While many features of 4RUMS are open to unauthenticated users, certain features require a user to be logged in with a valid account. Unauthenticated users can view the homepage, communities, a post’s page and comments, a user’s profile, and the log in/sign up pages.<br><br>Creating and editing posts and communities, as well as leaving comments on posts, are only available to users logged in with valid accounts. Once a valid account is created, users can access the aforementioned features as well as profile customization. Should a user attempt to access a feature without the correct credentials/authorization, they will be met with a prompt to log in/sign up.
+
+                        In its current state, if all data in users.db is deleted, the first account created will be given administrator privileges. Accounts granted the administrator privilege are decided in app.py and can only be changed in line 48 by adding user ids to the admin_user list; currently the list only contains one id, the integer ‘1’. If an account has an id other than the one(s) listed in admin_user, the account will be given ‘User’ status. All users regardless of their user/administrator statuses have the ability to create communities, create posts, like posts, and leave comments on posts. Users can also edit and delete their own posts and profile, though, username and password change is currently not possible. While administrators are the only users with the ability to edit and delete communities, deleting the administrator first may cause issues with deleting all communities, so it is recommended to delete communities before deleting the administrator account.<br><br>
+                        
+                        A previous version of the application saw issues when deleting posts and the related comments and likes—the post id being referenced in the ‘comments’ and ‘like’ tables became NULL values as there was no longer a valid post id being passed. This issue prevented users from visiting their own, or even other user’s, profile as the HTML template could not properly find and display comments because of the NULL value This issue should now be resolved as the deletion of a post (parent object) will also apply to the associated comments and likes (child objects) via SQLAlchemy’s cascade behavior.<br><br>
+                        
+                        Navigation between pages is intuitive and familiar to other social media sites, like Reddit, and allows users to go from page to page seamlessly no matter where they find themselves. When visiting the site initially, users will be taken to the homepage where all posts made to 4RUMS are displayed. In its current state, posts are displayed based on those most recently posted, but in a future update posts will be sorted based on newness and level of user engagement (number of likes and comments).<br><br> 
+                        
+                        If a user wishes to see posts of a certain type, they can visit the communities listed on the left side of the screen by clicking on the link. Users can also navigate back to the homepage by clicking on ‘Home’ listed in the community tab or the ‘4RUMS’ logo in the top left. The communities listed can be referenced when making a post (i.e. posts can be tagged with a certain community), though, the ‘Home’ option is not available as a tag nor can it be deleted.<br><br>
+                         
+                        When visiting a community’s page, the user will be greeted by the name and a brief description of the community. Following this overview are all posts which include the community’s tag in order of newness. Regardless of the manner in which a user views a post, a post’s original poster, title, date and time, content, and number of likes are visible. However, visiting a post’s page allows users to leave a comment and view all other comments made. Should a user attempt to visit a page that does not exist, they will be met with an error message and prompted to redirect to the homepage or to try again.<br><br>
+                        
+                        When a user wishes to view or edit their profile, they can click on the profile icon located at the top right of the screen. Here they will find their user dashboard where they can view their profile overview, as well as posts and comments made. It is here users can also add/update their display name, bio, and profile picture, or even delete their account should they choose to.<br><br>
+                        
+                        Should a user want to create a post, they can click on the post icon to the left of the profile icon. Here they will find a form which prompts them for a community tag, a title, and body. While posts cannot be saved as drafts, they can be edited after being posted by visiting the post’s page and clicking on the pen/edit icon.
+                        
+                        Similarly, should a user want to create a new community, they can click on the blue community icon on the left side of the screen. They will again find a form and be prompted for a community name and description wherein they can describe the use/focus of the community. As mentioned previously, only accounts with administrator privileges have the ability to edit a community (i.e. the name or description) and can edit communities by clicking on the pen/edit icon to the right of the community’s name.
+                    </p>
                     <br>
-                    <h2 style="margin-bottom: 20px;">03. Design Process</h2>
-                    <p></p>
+                    <h2 style="margin-bottom: 20px;">03. Skills Used</h2>
+                    <p>This project required that I use my skills relevant to design and programming, specifically skills pertaining to Python, HTML, CSS, and SQL. Although I had prior experience making static websites with minimal use of user input (e.g. ‘THWIP!’), I had never tackled a more dynamic website, and neither had I attempted a web application that updates with user input. In fact, most of the challenge with this project stemmed from my lack of familiarity using the Flask web framework and trying to implement the many features I had in mind.</p>
                 </div>
             </div>
             <div class="container2" style="align-items: center; background-color: #3d3d3d1f; padding: 75px 0;">
@@ -67,10 +87,14 @@
                     <img src="../static/images/4rums_editpost.png" style="border-radius: 3px; margin-right: 75px; width: 35%; background-color: transparent;" alt="">
                     <img src="../static/images/4rums_editcomm.png" style="border-radius: 3px; width: 35%; background-color: transparent;" alt="">
                 </div>
+                <p style="text-align: center; background-color: transparent; margin-top: 25px;">*Create Post (Top), Edit Post (Bottom-left), Edit Community (Bottom-right)</i></p>
             </div>
             <div class="container" style="display: flex; flex-direction: column; padding: 75px 0; width: 35% ">
                 <div style="text-align: left;">
-                    <h2 style="margin-bottom: 20px;">04. Outcome & Reflection</h2>
+                    <h2 style="margin-bottom: 20px;">04. Future Considerations</h2>
+                    <p>As for other features not currently available, the following were also considered but were ultimately not possible given the timeframe and resources: inter-user interaction (liking/replying to comments and user following), communication (direct messaging), comment editing, and community following. Accessing 4RUMS from different devices may also cause issues with the website as it is mainly intended as a desktop web application. That said, is the hope that a future update will implement these features and improve the overall user experience.</p>
+                    <br>
+                    <h2 style="margin-bottom: 20px;">05. Reflection</h2>
                     <p>Out of all the assignments completed for CS50x, I enjoyed this one the most. The freedom to choose what project to work on allowed me to express myself creatively and learn more about web development, a field I have grown a liking to. While my final project is not exactly the product I had envisioned when I first started, it is my own creation; just as it improved over time and with every iteration, so will I.</p>
                 </div>
             </div>
